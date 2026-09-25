@@ -10,3 +10,39 @@
     transform: translateX(-50%);
   }
 }
+
+/* Hero entrance — the page's one signature motion moment (see landing DESIGN.md). */
+@keyframes hero-rise-fade {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-entrance > * {
+  animation: hero-rise-fade 0.5s ease-out both;
+}
+.hero-entrance > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+.hero-entrance > *:nth-child(2) {
+  animation-delay: 90ms;
+}
+.hero-entrance > *:nth-child(3) {
+  animation-delay: 180ms;
+}
+.hero-entrance > *:nth-child(4) {
+  animation-delay: 270ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-entrance > * {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

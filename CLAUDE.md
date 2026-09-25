@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run preview` — preview the production build locally.
 - `npm run lint` — ESLint over the repo (`eslint.config.js`).
 - `npm run format` — Prettier write over the repo.
-- No test suite is configured in this repo. Should one be added, apply the same test-before-push discipline as `magnet-app-front/CLAUDE.md`'s "Test coverage before opening a PR": new/changed logic should have real test coverage before a PR ships, not added only after a reviewer flags the gap.
+- No test suite is configured in this repo. Should one be added, apply the same test-before-push discipline as `magnet-app-front/CLAUDE.md`'s "Test coverage before every push": new/changed logic should have real test coverage, written and passing, before every push — not added only after a reviewer flags the gap.
 
 ## Pre-commit hooks
 
