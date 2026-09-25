@@ -1,121 +1,83 @@
-import { ChevronRight, BarChart3, Search, MessageSquare, TrendingUp, Clock, Users, Menu, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Menu, X } from "lucide-react";
+import { Fragment, useState } from "react";
 
 function HomePage() {
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [visible, setVisible] = useState(true);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const productImages = [
-    '/news.png',
-    '/discover.png',
-    '/contact.png',
-    '/strategy.png',
-    '/events.png',
-    '/track.png',
+  const trustedFirmRows = [
+    [
+      "Freshfields Bruckhaus Deringer",
+      "Lowenstein Sandler",
+      "White & Case",
+      "Alston & Bird",
+      "Eversheds Sutherland",
+    ],
+    [
+      "Frankfurt Kurnit Klein & Selz",
+      "DLA Piper",
+      "Orrick, Herrington & Sutcliffe",
+      "Reed Smith",
+      "Akin Gump Strauss Hauer & Feld",
+    ],
   ];
-
-  const featuredImages = [
-    { src: '/lawdotcom.png', alt: 'Law.com' },
-    { src: '/Legal-Tech-Blog-Logo.png', alt: 'Legal Tech Blog' },
-    { src: '/Legalverse-Media-Logo-Yoast1200.png', alt: 'Legalverse Media' },
-    { src: '/artificial-lawyer-logo.png', alt: 'Artificial Lawyer' },
-  ];
-
-  const handleImageClick = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % productImages.length);
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.scrollY;
-      
-      // Show navbar when scrolling up or when at the top of the page
-      if (prevScrollPos > currentScrollPos || currentScrollPos < 10) {
-        setVisible(true);
-      } else {
-        // Hide navbar when scrolling down (but not at the top)
-        setVisible(false);
-      }
-      
-      setPrevScrollPos(currentScrollPos);
-    };
-
-    // Add throttling to avoid excessive function calls
-    let timeoutId: number | null = null;
-    const throttledScroll = () => {
-      if (timeoutId === null) {
-        timeoutId = window.setTimeout(() => {
-          handleScroll();
-          timeoutId = null;
-        }, 100);
-      }
-    };
-
-    window.addEventListener('scroll', throttledScroll);
-    return () => {
-      window.removeEventListener('scroll', throttledScroll);
-      if (timeoutId) window.clearTimeout(timeoutId);
-    };
-  }, [prevScrollPos]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % productImages.length);
-    }, 5000); // Change image every 5 seconds
-
-    return () => clearInterval(interval);
-  }, [productImages.length]);
-
 
   return (
-    <div className="relative flex size-full min-h-screen flex-col bg-[#FDFDFD] overflow-x-hidden" style={{ fontFamily: '"Inter", sans-serif' }}>
+    <div
+      className="relative flex size-full min-h-screen flex-col bg-[#FDFDFD] overflow-x-hidden"
+      style={{ fontFamily: '"Inter", sans-serif' }}
+    >
       <div className="flex h-full grow flex-col">
         {/* Navigation */}
-        <header className={`fixed top-0 left-0 right-0 z-10 bg-[#1A2E40] backdrop-blur-sm transition-transform duration-300 ${visible ? 'translate-y-0' : '-translate-y-full'}`}>
+        <header className="fixed top-0 left-0 right-0 z-10 border-b border-cool-taupe bg-ivory-white/95 shadow-card backdrop-blur-sm">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-            <a href="#" className="flex items-center gap-2 text-white">
+            <a href="#" className="flex items-center gap-2">
               <img
-                src="/magnet-logo-white.png"
+                src="/logos/magnet-logo-blue.png"
                 alt="MagNet Logo"
-                className="h-8 w-auto object-contain"
+                className="mt-0.5 h-8 w-auto object-contain"
               />
             </a>
-            
+
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              <a href="#benefits" className="text-[#E6E6E6] hover:text-[#3A6EA5] text-sm font-medium transition">Benefits</a>
-              <a href="#features" className="text-[#E6E6E6] hover:text-[#3A6EA5] text-sm font-medium transition">Features</a>
-              <a href="#how-it-works" className="text-[#E6E6E6] hover:text-[#3A6EA5] text-sm font-medium transition">How It Works</a>
-              <a href="/pricing-plans" className="text-[#E6E6E6] hover:text-[#3A6EA5] text-sm font-medium transition">Pricing</a>
+              <a
+                href="#how-it-works"
+                className="font-display text-sm font-medium text-steel-gray transition hover:text-ink-black"
+              >
+                How It Works
+              </a>
+              <a
+                href="/pricing-plans"
+                className="font-display text-sm font-medium text-steel-gray transition hover:text-ink-black"
+              >
+                Pricing
+              </a>
             </div>
-            
+
             {/* Desktop CTA Buttons */}
             <div className="hidden md:flex items-center gap-4">
               <a
                 href="https://app.magnetlegal.co"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center rounded-lg border border-[#C9A34D] bg-transparent px-5 py-2.5 text-sm font-medium text-[#C9A34D] hover:bg-[#C9A34D] hover:text-[#1A2E40] transition"
+                className="flex items-center justify-center rounded-md border border-cool-taupe bg-ivory-white px-5 py-2.5 font-display text-sm font-medium text-steel-gray shadow-sm transition-colors hover:bg-cobalt-blue hover:text-ivory-white"
               >
-                <span>Sign up/Login</span>
+                <span>Login</span>
               </a>
-              <a 
+              <a
                 href="https://calendly.com/magnetagents/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center rounded-lg bg-[#3A6EA5] px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#325d8c] transition"
+                className="flex items-center justify-center rounded-md border border-transparent bg-brass-gold px-5 py-2.5 font-display text-sm font-semibold text-midnight-navy transition-colors hover:bg-brass-deep"
               >
-                <span>Book a demo</span>
-                <ChevronRight className="ml-1" size={16} />
+                <span>Book a Demo</span>
               </a>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               type="button"
-              className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-[#E6E6E6] hover:text-[#3A6EA5] hover:bg-[#3A6EA5]/10 transition"
+              className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-steel-gray transition hover:bg-cool-taupe/50 hover:text-ink-black"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <span className="sr-only">Open main menu</span>
@@ -128,519 +90,398 @@ function HomePage() {
           </div>
 
           {/* Mobile Menu */}
-          <div className={`md:hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-            <div className="px-4 pb-4 pt-2 space-y-4 bg-[#1A2E40] border-t border-[#3A6EA5]/20">
+          <div
+            className={`md:hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"}`}
+          >
+            <div className="space-y-4 border-t border-cool-taupe bg-ivory-white px-4 pb-4 pt-2">
               {/* Mobile Navigation Links */}
               <div className="flex flex-col space-y-3">
-                <a 
-                  href="#benefits" 
-                  className="text-[#E6E6E6] hover:text-[#3A6EA5] text-base font-medium transition py-2 border-b border-[#3A6EA5]/10"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Benefits
-                </a>
-                <a 
-                  href="#features" 
-                  className="text-[#E6E6E6] hover:text-[#3A6EA5] text-base font-medium transition py-2 border-b border-[#3A6EA5]/10"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Features
-                </a>
-                <a 
-                  href="#how-it-works" 
-                  className="text-[#E6E6E6] hover:text-[#3A6EA5] text-base font-medium transition py-2 border-b border-[#3A6EA5]/10"
+                <a
+                  href="#how-it-works"
+                  className="border-b border-cool-taupe py-2 font-display text-base font-medium text-steel-gray transition hover:text-ink-black"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   How It Works
                 </a>
-                <a 
-                  href="/pricing-plans" 
-                  className="text-[#E6E6E6] hover:text-[#3A6EA5] text-base font-medium transition py-2 border-b border-[#3A6EA5]/10"
+                <a
+                  href="/pricing-plans"
+                  className="border-b border-cool-taupe py-2 font-display text-base font-medium text-steel-gray transition hover:text-ink-black"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Pricing
                 </a>
               </div>
-              
+
               {/* Mobile CTA Buttons */}
               <div className="flex flex-col space-y-3 pt-4">
                 <a
                   href="https://app.magnetlegal.co"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center rounded-lg border border-[#C9A34D] bg-transparent px-5 py-3 text-base font-medium text-[#C9A34D] hover:bg-[#C9A34D] hover:text-[#1A2E40] transition"
+                  className="flex items-center justify-center rounded-md border border-cool-taupe bg-ivory-white px-5 py-3 font-display text-base font-medium text-steel-gray shadow-sm transition-colors hover:bg-cobalt-blue hover:text-ivory-white"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <span>Sign up/Login</span>
+                  <span>Login</span>
                 </a>
-                <a 
+                <a
                   href="https://calendly.com/magnetagents/30min"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center rounded-lg bg-[#3A6EA5] px-5 py-3 text-base font-medium text-white shadow-sm hover:bg-[#325d8c] transition"
+                  className="flex items-center justify-center rounded-md border border-transparent bg-brass-gold px-5 py-3 font-display text-base font-semibold text-midnight-navy transition-colors hover:bg-brass-deep"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <span>Book a demo</span>
-                  <ChevronRight className="ml-1" size={16} />
+                  <span>Book a Demo</span>
                 </a>
               </div>
             </div>
           </div>
         </header>
 
-        {/* Hero Section */}
-        <section className="relative overflow-hidden bg-[#1A2E40] min-h-screen flex items-center">
-          <div className="absolute inset-0 opacity-20 mix-blend-overlay">
-            <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
-              <path fill="none" stroke="#C9A34D" strokeWidth="1.5" d="M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63"></path>
-              <path fill="none" stroke="#C9A34D" strokeWidth="1.5" d="M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764"></path>
-              <path fill="none" stroke="#C9A34D" strokeWidth="1.5" d="M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880"></path>
-              <path fill="none" stroke="#C9A34D" strokeWidth="1.5" d="M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382"></path>
-              <path fill="none" stroke="#C9A34D" strokeWidth="1.5" d="M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-31 229"></path>
-            </svg>
-          </div>
-          
-          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full py-20">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Left side - Text content */}
-              <div className="text-center lg:text-left">
-                <h1 className="text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
-                  Client Acquisition,
-                  <span className="block text-[#3A6EA5]">Automated</span>
-                </h1>
-                <p className="mt-8 max-w-2xl text-xl text-[#E6E6E6]">
-                  AI agents for lawyers to reach new clients
-                </p>
-                <div className="mt-10 flex flex-wrap gap-6 justify-center lg:justify-start">
-                  <a
-                    href="https://app.magnetlegal.co"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-lg bg-[#C9A34D] px-8 py-4 text-lg font-medium text-[#1A2E40] shadow-md hover:bg-[#b89344] transition"
-                  >
-                    Sign up/Login
-                  </a>
-                </div>
-              </div>
-
-                            {/* Right side - Image carousel */}
-              <div className="relative">
-                <img
-                  src={productImages[currentImageIndex]}
-                  alt="MagNet Platform Screenshot"
-                  className="rounded-xl shadow-lg z-0 w-full h-auto transition-opacity duration-500 cursor-pointer"
-                  onClick={handleImageClick}
-                />
-                <div className="absolute -bottom-6 -right-6 hidden lg:block">
-                  
-                </div>
-                <div className="flex justify-center gap-2 mt-4">
-                  {productImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                        index === currentImageIndex 
-                          ? 'bg-[#3A6EA5] w-4' 
-                          : 'bg-[#E6E6E6] hover:bg-[#3A6EA5]/50'
-                      }`}
-                      aria-label={`Go to image ${index + 1}`}
-                    />
-                  ))}
-                </div>
-                
-                {/* Book a demo button - under the carousel */}
-                <div className="mt-8 text-center">
-                  <p className="text-base font-medium text-[#E6E6E6] mb-4">Questions? We're glad to help</p>
-                  <a
-                    href="https://calendly.com/magnetagents/30min"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-lg bg-[#3A6EA5] px-8 py-4 text-lg font-medium text-white shadow-md hover:bg-[#325d8c] focus:outline-none focus:ring-2 focus:ring-[#3A6EA5] focus:ring-offset-2 focus:ring-offset-[#1A2E40] transition"
-                  >
-                    Book a demo
-                  </a>
-                </div>
-              </div>
+        {/* Hero — "The Confident Line": one thesis sentence, one quiet CTA, real negative space, nothing else. See DESIGN.md. */}
+        <section className="relative bg-ivory-white py-28 sm:py-36 lg:py-40">
+          <div className="hero-entrance mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="mx-auto max-w-[1020px] font-display font-extrabold tracking-[-0.035em] leading-[1.1] text-ink-black text-[2.6rem] sm:text-[3.4rem] lg:text-[4rem]">
+              AI-native business development
+              <br />
+              for restless lawyers
+            </h1>
+            <p className="mx-auto mt-6 max-w-[1100px] font-display text-2xl leading-relaxed text-steel-gray sm:text-3xl xl:whitespace-nowrap">
+              A more elegant workflow for building relationships that matter.
+            </p>
+            <div className="mt-12">
+              <a
+                href="https://calendly.com/magnetagents/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-md bg-cobalt-blue px-7 py-3.5 font-display text-base font-medium text-ivory-white shadow-[0_4px_20px_rgba(58,110,165,0.35)] transition hover:brightness-110"
+              >
+                Book a Demo
+              </a>
             </div>
-
-            {/* Partnered With Section */}
-            <div className="mt-16 text-center">
-              <p className="text-base font-medium text-[#E6E6E6] mb-6">Partnered with</p>
-              <div className="flex items-center justify-center gap-8 flex-wrap">
-                <img 
-                  src="/clio_logo.png" 
-                  alt="Clio" 
-                  className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                />
-                <img 
-                  src="/leadwise_logo.jpeg" 
-                  alt="Leadwise" 
-                  className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                />
-              </div>
-            </div>
-
           </div>
         </section>
 
-        {/* As Featured In - compact section, appears when user scrolls past hero */}
-        <section className="bg-[#1A2E40] py-5 overflow-hidden">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <p className="text-base font-medium text-[#E6E6E6] mb-4 text-center">As featured in</p>
-            <div className="overflow-hidden">
-              <div className="flex" style={{
-                animation: 'scroll 40s linear infinite',
-                width: 'calc(100% * 8)'
-              }}>
-                {[...Array(20)].map((_, setIndex) => 
-                  featuredImages.map((image, index) => (
-                    <div key={`set-${setIndex}-${index}`} className="flex-shrink-0 mx-2" style={{ width: '150px' }}>
-                      <img 
-                        src={image.src}
-                        alt={image.alt}
-                        className="h-10 w-auto opacity-80 hover:opacity-100 transition-opacity mx-auto"
-                      />
-                    </div>
-                  ))
-                )}
+        {/* Used by lawyers at — the page's navy accent band. The one proof signal that actually
+            lands with this ICP (peer-firm pedigree); partner logos and press mentions were cut
+            since they diluted it without adding real credibility for this audience. */}
+
+        <section
+          className="pb-10 pt-6 shadow-card-dark sm:pb-12 sm:pt-8"
+          style={{
+            background:
+              "linear-gradient(105deg, rgba(58, 110, 165, 0) 0%, rgba(58, 110, 165, 0.25) 40%, rgba(58, 110, 165, 0.25) 60%, rgba(58, 110, 165, 0) 100%), linear-gradient(180deg, #263a52 0%, #1c2b3d 100%)",
+          }}
+        >
+          <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <span className="font-plex text-xs uppercase tracking-[0.2em] text-ivory-white/60">
+                Used by lawyers at
+              </span>
+              <div className="mt-5 flex flex-col items-center gap-3">
+                {trustedFirmRows.map((row, rowIndex) => (
+                  <div
+                    key={rowIndex}
+                    className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2"
+                  >
+                    {row.map((firm, i) => (
+                      <Fragment key={firm}>
+                        <span className="font-display text-sm font-medium text-ivory-white/90">
+                          {firm}
+                        </span>
+                        {i < row.length - 1 && (
+                          <span
+                            className="h-1 w-1 shrink-0 rounded-full bg-brass-gold"
+                            aria-hidden="true"
+                          />
+                        )}
+                      </Fragment>
+                    ))}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Product Demo Video Section */}
-        <section className="py-20 bg-[#FDFDFD]">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold tracking-tight text-[#1A2E40] sm:text-4xl">
-                See MagNet in Action
+        {/* Value Proposition — a secondary hero moment: one large standalone statement,
+            no supporting paragraph, mirroring the restraint of the real hero above. */}
+        <section className="bg-ivory-white pb-24 pt-[152px] sm:pb-32 sm:pt-[192px]">
+          <div className="mx-auto max-w-[1150px] px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="font-display text-3xl font-extrabold tracking-tight text-ink-black sm:text-4xl lg:text-5xl">
+              The best business development
+              <br />
+              doesn't feel like business development.
+            </h2>
+          </div>
+        </section>
+
+        {/* Who / What / When */}
+        <section id="how-it-works" className="bg-ivory-white py-24 sm:py-28">
+          <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <p className="font-display text-xs font-medium uppercase tracking-[0.2em] text-cobalt-blue">
+                How it works
+              </p>
+              <h2 className="mt-4 font-display text-2xl font-bold tracking-tight text-ink-black sm:text-3xl">
+                The right person. The right moment. The right words.
               </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-lg text-[#6B7280]">
-                Watch how our AI-powered platform streamlines client acquisition for lawyers
-              </p>
             </div>
-            
-            <div className="flex justify-center">
-              <div className="relative w-full max-w-4xl">
-                <div className="relative" style={{ paddingBottom: '56.25%' }}>
-                  <iframe
-                    src="https://www.loom.com/embed/2e8486e69f084a559ae8838e065f9ebe?sid=20f89266-4c16-4ed2-a0be-4643375a660d"
-                    frameBorder="0"
-                    allowFullScreen
-                    className="absolute top-0 left-0 w-full h-full rounded-xl shadow-2xl"
-                    title="MagNet Agents Product Demo"
-                  ></iframe>
+
+            <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+              <div className="rounded-xl border border-cool-taupe bg-paper-white p-8 shadow-card">
+                <p className="font-display text-xs font-medium uppercase tracking-[0.2em] text-brass-ink">
+                  Who
+                </p>
+                <div className="mt-4 space-y-4">
+                  <div>
+                    <p className="font-display text-sm font-bold text-ink-black">
+                      Search by description
+                    </p>
+                    <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
+                      Describe who you're looking for, and AI agents search for
+                      real people who match — not just your existing contacts.
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-display text-sm font-bold text-ink-black">
+                      Warm-contact memory
+                    </p>
+                    <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
+                      Every contact keeps its own history — prior relationship,
+                      past conversations, and context, all in one place.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-cool-taupe bg-paper-white p-8 shadow-card">
+                <p className="font-display text-xs font-medium uppercase tracking-[0.2em] text-brass-ink">
+                  When
+                </p>
+                <div className="mt-4 space-y-4">
+                  <div>
+                    <p className="font-display text-sm font-bold text-ink-black">
+                      Market signal tracking
+                    </p>
+                    <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
+                      Intel surfaces real-world signals — news, market moves —
+                      that make right now the right time to reach out.
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-display text-sm font-bold text-ink-black">
+                      Communication cadence
+                    </p>
+                    <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
+                      Timing also accounts for when you last reached out, so no
+                      relationship goes quiet by accident.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-cool-taupe bg-paper-white p-8 shadow-card">
+                <p className="font-display text-xs font-medium uppercase tracking-[0.2em] text-brass-ink">
+                  What
+                </p>
+                <div className="mt-4 space-y-4">
+                  <div>
+                    <p className="font-display text-sm font-bold text-ink-black">
+                      Voice, backed by BD craft
+                    </p>
+                    <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
+                      Drafts blend your own voice with proven outreach and
+                      business-development best practices.
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-display text-sm font-bold text-ink-black">
+                      Tailored to them
+                    </p>
+                    <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
+                      Content reflects the relationship's history and what would
+                      specifically interest the person you're reaching.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-            
-            <div className="mt-12 text-center">
-              <p className="text-[#6B7280] text-sm mb-8">
-                Watch the full demo to see how MagNet can transform your client acquisition process
+          </div>
+        </section>
+
+        {/* ICP Testimonials — real content loaded. Per DESIGN.md's page plan (item 4). */}
+        <section className="bg-ivory-white py-24 sm:py-28">
+          <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <p className="font-display text-xs font-medium uppercase tracking-[0.2em] text-cobalt-blue">
+                Testimonials
               </p>
-              <div className="flex justify-center">
-                <a
-                  href="https://app.magnetlegal.co"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-lg bg-[#3A6EA5] px-8 py-3 text-base font-medium text-white shadow-md hover:bg-[#325d8c] focus:outline-none focus:ring-2 focus:ring-[#3A6EA5] focus:ring-offset-2 transition"
-                >
-                  Sign Up Now
-                </a>
+              <h2 className="mt-4 font-display text-2xl font-bold tracking-tight text-ink-black sm:text-3xl">
+                From fragmented effort to intentional growth.
+              </h2>
+            </div>
+
+            <div className="mt-16 flex flex-col gap-6">
+              <div className="flex flex-col rounded-xl border border-cool-taupe bg-paper-white p-8 shadow-card sm:h-80 sm:justify-center">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-10">
+                  <div className="flex flex-col items-center justify-center gap-3 rounded-lg bg-midnight-navy/[0.06] p-4 text-center sm:h-56 sm:w-64 sm:flex-shrink-0">
+                    <img
+                      src="/testimonials/maximilian-viski-hanka.jpeg"
+                      alt="Maximilian Viski-Hanka"
+                      className="h-24 w-24 flex-shrink-0 rounded-full border border-cool-taupe object-cover"
+                    />
+                    <div>
+                      <p className="font-display text-sm font-bold text-ink-black">
+                        Maximilian Viski-Hanka
+                      </p>
+                      <p className="font-plex text-xs text-steel-gray">
+                        Investment Funds Partner, DLA Piper
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex-1 space-y-3 font-display text-base leading-relaxed text-ink-black">
+                    <p>
+                      “Using Magnet helped me make partner because it showed the
+                      firm that I was willing to take an outside-the-box
+                      approach to BD.
+                    </p>
+                    <p>
+                      I spend significantly more money going out to dinners than
+                      I do on Magnet, but I have way more firepower because of
+                      it.
+                    </p>
+                    <p>
+                      AI is hot right now, but Magnet uses it in the right way.
+                      It functions like a personal pocket networker. It's the
+                      best tool I've used.”
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* Jesse Jenike-Godshalk card — hidden temporarily, firm has not yet given consent.
+                  Restore by uncommenting; content and photo untouched below.
+              <div className="flex flex-col rounded-xl border border-cool-taupe bg-paper-white p-8 shadow-card sm:h-80 sm:justify-center">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-10">
+                  <div className="flex flex-col items-center justify-center gap-3 rounded-lg bg-midnight-navy/[0.06] p-4 text-center sm:h-56 sm:w-64 sm:flex-shrink-0">
+                    <img
+                      src="/testimonials/jesse-jenike-godshalk.jpeg"
+                      alt="Jesse Jenike-Godshalk"
+                      className="h-24 w-24 flex-shrink-0 rounded-full border border-cool-taupe object-cover"
+                    />
+                    <div>
+                      <p className="font-display text-sm font-bold text-ink-black">Jesse Jenike-Godshalk</p>
+                      <p className="font-plex text-xs text-steel-gray">IP Litigation Partner, Mid-Size Law Firm</p>
+                    </div>
+                  </div>
+                  <div className="flex-1 space-y-3 font-display text-base leading-relaxed text-ink-black">
+                    <p>“With Magnet, I'm more in control of how I'm building my practice and who I'm pursuing from the get-go, rather than just accepting whatever connections the world throws at me.</p>
+                    <p>It gets me past the hurdle of figuring out where to start, makes my outreach more effective, and gives me a higher return on my time.</p>
+                    <p>I feel a lot happier and contented with my BD process now.”</p>
+                  </div>
+                </div>
+              </div>
+              */}
+              <div className="flex flex-col rounded-xl border border-cool-taupe bg-paper-white p-8 shadow-card sm:h-80 sm:justify-center">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-10">
+                  <div className="flex flex-col items-center justify-center gap-3 rounded-lg bg-midnight-navy/[0.06] p-4 text-center sm:h-56 sm:w-64 sm:flex-shrink-0">
+                    <img
+                      src="/testimonials/jonathan-joannides.jpeg"
+                      alt="Jonathan Joannides"
+                      className="h-24 w-24 flex-shrink-0 rounded-full border border-cool-taupe object-cover"
+                    />
+                    <div>
+                      <p className="font-display text-sm font-bold text-ink-black">
+                        Jonathan Joannides
+                      </p>
+                      <p className="font-plex text-xs text-steel-gray">
+                        AI, IP, Privacy, and Cybersecurity Lawyer at Digital
+                        Frontier Law, APC
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex-1 font-display text-base leading-relaxed text-ink-black">
+                    <p>
+                      “Having supported startups and growing businesses at
+                      Wilson Sonsini and Fenwick, I know how dynamic client
+                      development can be. Now that I've launched my own Silicon
+                      Valley firm, MagNet Agents has become a core part of how
+                      we identify future clients. It simplifies research,
+                      streamlines outreach, and keeps everything organized in an
+                      elegant, intuitive way. MagNet Agents is now a key driver
+                      in our business development workflow.”
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col rounded-xl border border-cool-taupe bg-paper-white p-8 shadow-card sm:h-80 sm:justify-center">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-10">
+                  <div className="flex flex-col items-center justify-center gap-3 rounded-lg bg-midnight-navy/[0.06] p-4 text-center sm:h-56 sm:w-64 sm:flex-shrink-0">
+                    <div className="flex h-24 w-24 flex-shrink-0 items-center justify-center rounded-full bg-midnight-navy">
+                      <span className="font-display text-base font-bold text-ivory-white">
+                        TG
+                      </span>
+                    </div>
+                    <div>
+                      <p className="font-display text-sm font-bold text-ink-black">
+                        Timothy Gladden
+                      </p>
+                      <p className="font-plex text-xs text-steel-gray">
+                        Partner, RPCK Rastegar Panchal
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex-1 space-y-3 font-display text-base leading-relaxed text-ink-black">
+                    <p>“Magnet has been a game-changer.</p>
+                    <p>
+                      I'm adding contacts I meet at events directly into MagNet,
+                      adding notes and having its AI suggest the next outreach
+                      steps. Everything—leads, suggestions, follow-ups—is in one
+                      place, so I can easily track contacts and stay on top of
+                      my BD for the first time ever.
+                    </p>
+                    <p>
+                      Having it all on one platform makes business development
+                      much easier.”
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-20 bg-[#1A2E40]/5">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold tracking-tight text-[#1A2E40] sm:text-4xl">
-                How MagNet Helps You Establish New Client Relationships
-              </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-lg text-[#6B7280]">
-                Our AI-powered platform streamlines your client discovery process, making it easier than ever to find, engage, and track interactions with potential clients.
-              </p>
-            </div>
-
-            <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {/* Feature 1 */}
-              <div className="rounded-xl bg-white p-8 shadow-sm hover:shadow-md transition">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#3A6EA5]/10 text-[#3A6EA5]">
-                  <Search size={24} />
-                </div>
-                <h3 className="text-xl font-semibold text-[#1A2E40]">Discover</h3>
-                <p className="mt-4 text-[#6B7280]">
-                  Intelligent scanning of legal directories, business filings, and other online sources to identify high-potential leads.
-                </p>
-              </div>
-
-              {/* Feature 2 */}
-              <div className="rounded-xl bg-white p-8 shadow-sm hover:shadow-md transition">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#3A6EA5]/10 text-[#3A6EA5]">
-                  <MessageSquare size={24} />
-                </div>
-                <h3 className="text-xl font-semibold text-[#1A2E40]">Contact</h3>
-                <p className="mt-4 text-[#6B7280]">
-                  Automated personalized outreach suggestions that you can use to engage prospects effectively and efficiently.
-                </p>
-              </div>
-
-              {/* Feature 3 */}
-              <div className="rounded-xl bg-white p-8 shadow-sm hover:shadow-md transition">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#3A6EA5]/10 text-[#3A6EA5]">
-                  <BarChart3 size={24} />
-                </div>
-                <h3 className="text-xl font-semibold text-[#1A2E40]">Track</h3>
-                <p className="mt-4 text-[#6B7280]">
-                  Automatically keep track of your business development efforts and pull comprehensive reports detailing client interactions.
-                </p>
-              </div>
+        {/* Quick Start — the closing moment. Built to feel like the easiest possible next step,
+            per DESIGN.md: no onboarding steps shown, just tone and design that make starting
+            feel light. CTA matches the hero's quiet brass-tinted outline treatment (dark-surface
+            variant) — the solid brass-cta-with-shimmer was tried here too and rejected as the
+            wrong vibe, same as it was for the hero; there's no "loud" CTA anywhere on this page. */}
+        <section
+          className="py-20 shadow-card-dark sm:py-24"
+          style={{
+            background:
+              "linear-gradient(105deg, rgba(58, 110, 165, 0) 0%, rgba(58, 110, 165, 0.25) 40%, rgba(58, 110, 165, 0.25) 60%, rgba(58, 110, 165, 0) 100%), linear-gradient(180deg, #263a52 0%, #1c2b3d 100%)",
+          }}
+        >
+          <div className="mx-auto max-w-[900px] px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="font-display text-xl font-semibold tracking-tight text-ivory-white sm:text-2xl lg:text-3xl">
+              Save time. Reduce mental load. Build better relationships.
+            </h2>
+            <div className="mt-10 flex justify-center">
+              <a
+                href="https://calendly.com/magnetagents/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-md bg-brass-gold px-5 py-2.5 font-display text-sm font-semibold text-midnight-navy shadow-[0_2px_12px_rgba(232,197,106,0.2)] transition-colors hover:bg-brass-deep"
+              >
+                Book a Demo
+              </a>
             </div>
           </div>
         </section>
-
-        {/* Benefits Section */}
-        <section id="benefits" className="py-20 bg-[#FDFDFD]">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold tracking-tight text-[#1A2E40] sm:text-4xl">
-                Why Our Customers Love MagNet
-              </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-lg text-[#6B7280]">
-                Our AI-powered platform delivers exceptional results for modern lawyers.
-              </p>
-            </div>
-
-            <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-xl bg-[#E6E6E6] p-8 shadow-sm">
-                <div className="mb-4 text-[#C9A34D]">
-                  <Clock size={24} />
-                </div>
-                <h3 className="text-xl font-semibold text-[#1A2E40]">Save Valuable Time</h3>
-                <p className="text-[#6B7280]">
-                  Automated prospecting and client tracking free up lawyers to focus on billable work and case preparation.
-                </p>
-              </div>
-              
-              <div className="rounded-xl bg-[#E6E6E6] p-8 shadow-sm">
-                <div className="mb-4 text-[#C9A34D]">
-                  <TrendingUp size={24} />
-                </div>
-                <h3 className="text-xl font-semibold text-[#1A2E40]">Increase Revenue</h3>
-                <p className="text-[#6B7280]">
-                  Systematic lead generation creates a consistent pipeline of qualified prospects, leading to predictable growth.
-                </p>
-              </div>
-              
-              <div className="rounded-xl bg-[#E6E6E6] p-8 shadow-sm">
-                <div className="mb-4 text-[#C9A34D]">
-                  <Users size={24} />
-                </div>
-                <h3 className="text-xl font-semibold text-[#1A2E40]">Build Better Relationships</h3>
-                <p className="text-[#6B7280]">
-                  AI-powered insights help you connect with prospects on a deeper level, fostering long-term client relationships.
-                </p>
-              </div>
-            </div>
-            
-            {/* <div className="mt-16 grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:gap-x-12">
-              
-              
-              <div className="flex flex-col justify-center">
-                <h3 className="text-2xl font-bold text-[#1A2E40]">Designed Specifically for Lawyers</h3>
-                <div className="mt-6 space-y-6 text-[#6B7280]">
-                  <p>
-                    MagNet Agents was built from the ground up for lawyers, with features that address the unique challenges 
-                    of legal business development.
-                  </p>
-                  <p>
-                    Our platform integrates seamlessly with your existing workflow, providing powerful automation without 
-                    disrupting your practice.
-                  </p>
-                  <p>
-                    Every feature is designed with compliance and ethical considerations in mind, ensuring your client 
-                    acquisition efforts maintain the highest standards of professionalism.
-                  </p>
-                </div>
-              </div>
-            </div> */}
-          </div>
-        </section>
-
-
-        
-       
-
-        {/* Testimonials Section */}
-        <section className="py-20 bg-[#1A2E40]/5">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold tracking-tight text-[#1A2E40] sm:text-4xl">
-                What Our Customers Say
-              </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-lg text-[#6B7280]">
-                Hear from lawyers who have transformed their client acquisition with MagNet Agents.
-              </p>
-            </div>
-            
-            <div className="mt-16">
-              <div className="mx-auto max-w-7xl">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {/* First Testimonial */}
-                  <div className="rounded-xl bg-white p-8 shadow-sm h-full flex flex-col">
-                    <div className="flex flex-col items-center text-center h-full">
-                      <div className="mb-6">
-                        <img 
-                          src="/jj.jpeg" 
-                          alt="Jonathan Joannides" 
-                          className="h-24 w-24 rounded-full object-cover border-4 border-[#3A6EA5]/20"
-                        />
-                      </div>
-                      <blockquote className="text-lg text-[#1A2E40] leading-relaxed flex-1">
-                        "Having supported startups and growing businesses at Wilson Sonsini and Fenwick, I know how dynamic client development can be. Now that I've launched my own Silicon Valley firm, MagNet Agents has become a core part of how we identify future clients. It simplifies research, streamlines outreach, and keeps everything organized in an elegant, intuitive way. MagNet Agents is now a key driver in our business development workflow."
-                      </blockquote>
-                      <div className="mt-6">
-                        <p className="font-semibold text-[#1A2E40]">Jonathan Joannides</p>
-                        <p className="text-[#6B7280]">AI, IP, Privacy, and Cybersecurity Lawyer at Digital Frontier Law, APC</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Second Testimonial */}
-                  <div className="rounded-xl bg-white p-8 shadow-sm h-full flex flex-col">
-                    <div className="flex flex-col items-center text-center h-full">
-                      <div className="mb-6">
-                        <img 
-                          src="/mazen.jpeg" 
-                          alt="Mazen Osman" 
-                          className="h-24 w-24 rounded-full object-cover border-4 border-[#3A6EA5]/20"
-                        />
-                      </div>
-                      <blockquote className="text-lg text-[#1A2E40] leading-relaxed flex-1">
-                        "MagNet is an essential and incredibly easy-to-use product for lawyers involved in business development. The interface is clean, intuitive, and helps us focus on winning clients."
-                      </blockquote>
-                      <div className="mt-6">
-                        <p className="font-semibold text-[#1A2E40]">Mazen Osman</p>
-                        <p className="text-[#6B7280]">Associate</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Third Testimonial */}
-                  <div className="rounded-xl bg-white p-8 shadow-sm h-full flex flex-col">
-                    <div className="flex flex-col items-center text-center h-full">
-                      <div className="mb-6">
-                        <div className="h-24 w-24 rounded-full bg-[#3A6EA5] flex items-center justify-center border-4 border-[#3A6EA5]/20">
-                          <span className="text-3xl font-semibold text-white">TG</span>
-                        </div>
-                      </div>
-                      <blockquote className="text-lg text-[#1A2E40] leading-relaxed flex-1">
-                        "I've added MagNet to my business development routine and it's been a game-changer. I'm adding contacts I meet at events directly into MagNet, adding notes and having its AI suggest the next outreach steps. Everything – leads, suggestions, follow-ups – is in one place, so I can easily track contacts and stay on top of my BD for the first time ever. Having it all on one platform makes business development much easier."
-                      </blockquote>
-                      <div className="mt-6">
-                        <p className="font-semibold text-[#1A2E40]">Timothy Gladden</p>
-                        <p className="text-[#6B7280]">Partner at RPCK Rastegar Panchal</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* How It Works Section */}
-        <section id="how-it-works" className="py-20 bg-[#FDFDFD]">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold tracking-tight text-[#1A2E40] sm:text-4xl">
-                Get Started with MagNet Today
-              </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-lg text-[#6B7280]">
-                Our intuitive platform functions standalone and also seamlessly integrates with your exisiting tools, providing immediate value with minimal setup.
-              </p>
-            </div>
-            
-            <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
-              {/* Step 1: Onboard Your Profile */}
-              <div className="relative rounded-xl bg-white p-8 shadow-sm overflow-hidden border-t-4 border-[#3A6EA5]">
-                <div className="absolute -right-4 -top-4 flex h-8 w-8 items-center justify-center rounded-full bg-[#3A6EA5] text-white font-bold">
-                  1
-                </div>
-                <h3 className="text-xl font-semibold text-[#1A2E40]">Onboard Your Profile</h3>
-                <p className="mt-4 text-[#6B7280]">
-                  Quickly set up your MagNet account and provide key details about your practice, areas of expertise, and business goals.
-                </p>
-                <p className="mt-3 text-[#6B7280]">
-                  Our onboarding process is simple and secure, ensuring your information is protected at every step.
-                </p>
-              </div>
-              {/* Step 2: Set Your Preferences */}
-              <div className="relative rounded-xl bg-white p-8 shadow-sm overflow-hidden border-t-4 border-[#C9A34D]">
-                <div className="absolute -right-4 -top-4 flex h-8 w-8 items-center justify-center rounded-full bg-[#C9A34D] text-white font-bold">
-                  2
-                </div>
-                <h3 className="text-xl font-semibold text-[#1A2E40]">Set Your Preferences</h3>
-                <p className="mt-4 text-[#6B7280]">
-                  Customize your ideal client profile, practice areas of focus, and business development goals within the platform.
-                </p>
-                <p className="mt-3 text-[#6B7280]">
-                  MagNet's AI engine adapts to your preferences, continuously improving its recommendations.
-                </p>
-              </div>
-              {/* Step 3: Start Growing */}
-              <div className="relative rounded-xl bg-white p-8 shadow-sm overflow-hidden border-t-4 border-[#3A6EA5]">
-                <div className="absolute -right-4 -top-4 flex h-8 w-8 items-center justify-center rounded-full bg-[#3A6EA5] text-white font-bold">
-                  3
-                </div>
-                <h3 className="text-xl font-semibold text-[#1A2E40]">Start Growing</h3>
-                <p className="mt-4 text-[#6B7280]">
-                  Begin receiving AI-powered lead suggestions, outreach templates, and follow-up reminders tailored to your practice.
-                </p>
-                <p className="mt-3 text-[#6B7280]">
-                  Monitor your results through our comprehensive analytics dashboard and adjust your strategy as needed.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-        
-        {/* CTA */}
-        <section className="bg-[#1A2E40] py-16 sm:py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
-              <div>
-                <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                  Ready to transform your client acquisition?
-                </h2>
-                <p className="mt-4 text-lg text-[#E6E6E6]">
-                Sign up and start establishing tomorrow's new client relationships today.
-                </p>
-              </div>
-              <div className="mt-8 flex lg:mt-0 lg:justify-end">
-                <div className="flex gap-4">
-                  <a
-                    href="https://app.magnetlegal.co"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center rounded-lg border border-[#C9A34D] bg-transparent px-6 py-4 text-base font-medium text-[#C9A34D] hover:bg-[#C9A34D] hover:text-[#1A2E40] transition"
-                  >
-                    Sign up/Login
-                  </a>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-      
       </div>
     </div>
   );
 }
 
-export default HomePage; 
+export default HomePage;
