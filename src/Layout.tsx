@@ -10,10 +10,21 @@ import { isLoggedIn } from "./lib/authCookie";
 
 function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  // Lazy initializer (not useState(false) + an effect) so a logged-in
+  // visitor doesn't see a flash of the logged-out CTAs on first paint.
+  const [loggedIn, setLoggedIn] = useState(isLoggedIn);
 
   useEffect(() => {
-    setLoggedIn(isLoggedIn());
+    // The Login/Log out links open app.magnetlegal.co in a separate tab, so
+    // this tab's cookie read can go stale the moment the visitor signs in
+    // or out there. Re-check whenever this tab regains focus.
+    const resync = () => setLoggedIn(isLoggedIn());
+    window.addEventListener("focus", resync);
+    document.addEventListener("visibilitychange", resync);
+    return () => {
+      window.removeEventListener("focus", resync);
+      document.removeEventListener("visibilitychange", resync);
+    };
   }, []);
 
   return (
