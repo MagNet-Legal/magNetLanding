@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
 /* Hero entrance — the page's one signature motion moment (see landing DESIGN.md). */
 @keyframes hero-rise-fade {
   from {

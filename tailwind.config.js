@@ -19,7 +19,7 @@ export default {
         'brass-ink': '#2E4862', // Text on any brass fill
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Public Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         // New sections (landing DESIGN.md): Public Sans for display/body, IBM Plex Sans for meta.
         display: ['Public Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         plex: ['IBM Plex Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],

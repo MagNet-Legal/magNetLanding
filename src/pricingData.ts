@@ -1,7 +1,10 @@
-// Shared pricing/feature content, kept out of PricingPlans.tsx so it can be
-// imported from HomePage.tsx too without tripping the react-refresh
+// Shared marketing prose (category names, feature descriptions) for the
+// Individual and Founder Advisory plans, kept out of PricingPlans.tsx so it
+// can be imported from HomePage.tsx too without tripping the react-refresh
 // only-export-components lint rule (which flags a component file that also
-// exports plain data).
+// exports plain data). This does NOT cover prices or Stripe priceIds — those
+// remain hardcoded in PricingPlans.tsx's own `products` array, duplicated
+// separately against magnet-app-front/stripe-config.ts.
 
 export const individualFeatureGroups = [
   {
@@ -77,4 +80,8 @@ export const individualFeatureGroups = [
       },
     ],
   },
+];
+
+export const founderAdvisoryFeatures = [
+  "4 one-hour sessions per month with co-founder and CEO, Laura Bingenheimer",
 ];
