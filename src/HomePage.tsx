@@ -1,5 +1,6 @@
-import { Menu, X } from "lucide-react";
+import { Check, Menu, X } from "lucide-react";
 import { Fragment, useState } from "react";
+import { individualFeatureGroups } from "./pricingData";
 
 function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -150,12 +151,10 @@ function HomePage() {
             </p>
             <div className="mt-12">
               <a
-                href="https://calendly.com/magnetagents/30min"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/pricing-plans"
                 className="inline-flex items-center justify-center rounded-md bg-cobalt-blue px-7 py-3.5 font-display text-base font-medium text-ivory-white shadow-[0_4px_20px_rgba(58,110,165,0.35)] transition hover:brightness-110"
               >
-                Book a Demo
+                Get started
               </a>
             </div>
           </div>
@@ -305,6 +304,49 @@ function HomePage() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Full feature list — reuses individualFeatureGroups from PricingPlans.tsx
+            so the homepage and pricing page never drift on feature names/wording.
+            Kicker only (no h2) plus the subtle navy-tinted ground (same
+            low-opacity technique as the testimonial profile subcards) separate
+            this from Who/When/What above, while staying the same system. */}
+        <section className="bg-midnight-navy/[0.03] py-24 sm:py-28">
+          <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8">
+            <p className="text-center font-display text-xs font-medium uppercase tracking-[0.2em] text-cobalt-blue">
+              Features
+            </p>
+
+            <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2">
+              {individualFeatureGroups.map((group) => (
+                <div
+                  key={group.category}
+                  className="rounded-xl border border-cool-taupe bg-paper-white p-8 shadow-card"
+                >
+                  <p className="font-display text-base font-bold text-ink-black">
+                    {group.category}
+                  </p>
+                  <div className="mt-4 space-y-4">
+                    {group.items.map((item) => (
+                      <div key={item.name} className="flex items-start gap-2">
+                        <Check className="mt-1 h-4 w-4 flex-shrink-0 text-cobalt-blue" />
+                        <div>
+                          <p className="font-display text-sm font-bold text-ink-black">
+                            {item.name}
+                          </p>
+                          {item.description && (
+                            <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
+                              {item.description}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -469,12 +511,10 @@ function HomePage() {
             </h2>
             <div className="mt-10 flex justify-center">
               <a
-                href="https://calendly.com/magnetagents/30min"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/pricing-plans"
                 className="inline-flex items-center justify-center rounded-md bg-brass-gold px-5 py-2.5 font-display text-sm font-semibold text-midnight-navy shadow-[0_2px_12px_rgba(232,197,106,0.2)] transition-colors hover:bg-brass-deep"
               >
-                Book a Demo
+                Get started
               </a>
             </div>
           </div>

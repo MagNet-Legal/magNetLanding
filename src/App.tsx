@@ -35,6 +35,14 @@ function App() {
             >
               Privacy Policy
             </Link>
+            <a
+              href="mailto:contact@magnetlegal.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-plex text-xs text-steel-gray transition hover:text-ink-black"
+            >
+              Contact
+            </a>
           </div>
 
           <a
