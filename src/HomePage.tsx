@@ -234,7 +234,7 @@ function HomePage() {
                 <div className="mt-4 space-y-4">
                   <div>
                     <p className="font-display text-sm font-bold text-ink-black">
-                      New Client Discovery
+                      New client discovery
                     </p>
                     <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
                       Describe who you're looking for. AI agents find real
@@ -310,14 +310,19 @@ function HomePage() {
 
         {/* Full feature list — reuses individualFeatureGroups from PricingPlans.tsx
             so the homepage and pricing page never drift on feature names/wording.
-            Kicker only (no h2) plus the subtle navy-tinted ground (same
-            low-opacity technique as the testimonial profile subcards) separate
-            this from Who/When/What above, while staying the same system. */}
+            The subtle navy-tinted ground (same low-opacity technique as the
+            testimonial profile subcards) separates this from Who/When/What
+            above, while staying the same system. */}
         <section className="bg-midnight-navy/[0.03] py-24 sm:py-28">
           <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8">
-            <p className="text-center font-display text-xs font-medium uppercase tracking-[0.2em] text-cobalt-blue">
-              Features
-            </p>
+            <div className="text-center">
+              <p className="font-display text-xs font-medium uppercase tracking-[0.2em] text-cobalt-blue">
+                Features
+              </p>
+              <h2 className="mt-4 font-display text-2xl font-bold tracking-tight text-ink-black sm:text-3xl">
+                A complete system for building your practice.
+              </h2>
+            </div>
 
             <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2">
               {individualFeatureGroups.map((group) => (
