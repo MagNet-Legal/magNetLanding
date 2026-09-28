@@ -39,7 +39,7 @@ export const individualFeatureGroups = [
         name: "Curated Event Recommendations",
       },
       {
-        name: "Daily Intelligence Reports",
+        name: "Bespoke Intelligence Reports",
       },
     ],
   },

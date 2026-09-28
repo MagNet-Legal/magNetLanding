@@ -234,20 +234,20 @@ function HomePage() {
                 <div className="mt-4 space-y-4">
                   <div>
                     <p className="font-display text-sm font-bold text-ink-black">
-                      Search by description
+                      New Client Discovery
                     </p>
                     <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
-                      Describe who you're looking for, and AI agents search for
-                      real people who match — not just your existing contacts.
+                      Describe who you're looking for. AI agents find real
+                      people who match, beyond your existing contacts.
                     </p>
                   </div>
                   <div>
                     <p className="font-display text-sm font-bold text-ink-black">
-                      Warm-contact memory
+                      Warm relationship memory
                     </p>
                     <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
-                      Every contact keeps its own history — prior relationship,
-                      past conversations, and context, all in one place.
+                      Keep each relationship's history, past conversations, and
+                      relevant context in one place.
                     </p>
                   </div>
                 </div>
@@ -263,8 +263,8 @@ function HomePage() {
                       Market signal tracking
                     </p>
                     <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
-                      Intel surfaces real-world signals — news, market moves —
-                      that make right now the right time to reach out.
+                      Surface news and market developments that give you a
+                      timely reason to reach out.
                     </p>
                   </div>
                   <div>
@@ -286,7 +286,7 @@ function HomePage() {
                 <div className="mt-4 space-y-4">
                   <div>
                     <p className="font-display text-sm font-bold text-ink-black">
-                      Voice, backed by BD craft
+                      Voice backed by BD craft
                     </p>
                     <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
                       Drafts blend your own voice with proven outreach and
@@ -295,7 +295,7 @@ function HomePage() {
                   </div>
                   <div>
                     <p className="font-display text-sm font-bold text-ink-black">
-                      Tailored to them
+                      Context-aware messaging
                     </p>
                     <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
                       Content reflects the relationship's history and what would
