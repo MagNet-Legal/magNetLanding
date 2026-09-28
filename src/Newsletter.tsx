@@ -1,14 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Magnet, ArrowLeft } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Magnet, ArrowLeft } from "lucide-react";
 
 function Newsletter() {
   const handleSignUp = () => {
-    window.location.href = 'https://forms.office.com/Pages/ResponsePage.aspx?id=TlBonWP7AE2TNqNnpWy1LTByA66Z_EJOr7B1cYWQoZpUNVJUWEZVQkVKTFBQVjVOVUxLRkxaQ1JLNC4u';
+    window.location.href =
+      "https://forms.office.com/Pages/ResponsePage.aspx?id=TlBonWP7AE2TNqNnpWy1LTByA66Z_EJOr7B1cYWQoZpUNVJUWEZVQkVKTFBQVjVOVUxLRkxaQ1JLNC4u";
   };
 
   return (
-    <div className="relative flex size-full min-h-screen flex-col bg-[#FDFDFD]" style={{ fontFamily: '"Inter", sans-serif' }}>
+    <div
+      className="relative flex size-full min-h-screen flex-col bg-[#FDFDFD]"
+      style={{ fontFamily: '"Inter", sans-serif' }}
+    >
       <header className="bg-[#1A2E40]">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <Link to="/">
@@ -16,7 +20,9 @@ function Newsletter() {
               <div className="text-[#3A6EA5]">
                 <Magnet size={24} />
               </div>
-              <h2 className="text-xl font-semibold tracking-tight">MagNet Agents</h2>
+              <h2 className="text-xl font-semibold tracking-tight">
+                MagNet Agents
+              </h2>
             </div>
           </Link>
           <Link
@@ -63,7 +69,8 @@ function Newsletter() {
             </div>
             <div className="mt-8 md:mt-0">
               <p className="text-sm text-[#6B7280]">
-                &copy; {new Date().getFullYear()} MagNet Agents. All rights reserved.
+                &copy; {new Date().getFullYear()} MagNet Agents. All rights
+                reserved.
               </p>
             </div>
           </div>

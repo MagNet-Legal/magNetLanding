@@ -1,7 +1,6 @@
-
-import { Magnet, ChevronRight, Menu, X } from 'lucide-react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Magnet, ChevronRight, Menu, X } from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Press: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -14,13 +13,30 @@ const Press: React.FC = () => {
             <div className="text-[#3A6EA5]">
               <Magnet size={24} />
             </div>
-            <h2 className="text-xl font-semibold tracking-tight">MagNet Agents</h2>
+            <h2 className="text-xl font-semibold tracking-tight">
+              MagNet Agents
+            </h2>
           </Link>
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="/" className="text-[#E6E6E6] hover:text-[#3A6EA5] text-sm font-medium transition">Home</a>
-            <a href="/press" className="text-[#E6E6E6] hover:text-[#3A6EA5] text-sm font-medium transition">Press</a>
-            <a href="/pricing-plans" className="text-[#E6E6E6] hover:text-[#3A6EA5] text-sm font-medium transition">Pricing</a>
+            <a
+              href="/"
+              className="text-[#E6E6E6] hover:text-[#3A6EA5] text-sm font-medium transition"
+            >
+              Home
+            </a>
+            <a
+              href="/press"
+              className="text-[#E6E6E6] hover:text-[#3A6EA5] text-sm font-medium transition"
+            >
+              Press
+            </a>
+            <a
+              href="/pricing-plans"
+              className="text-[#E6E6E6] hover:text-[#3A6EA5] text-sm font-medium transition"
+            >
+              Pricing
+            </a>
           </div>
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center gap-4">
@@ -57,12 +73,32 @@ const Press: React.FC = () => {
           </button>
         </div>
         {/* Mobile Menu */}
-        <div className={`md:hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+        <div
+          className={`md:hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"}`}
+        >
           <div className="px-4 pb-4 pt-2 space-y-4 bg-[#1A2E40] border-t border-[#3A6EA5]/20">
             <div className="flex flex-col space-y-3">
-              <a href="/" className="text-[#E6E6E6] hover:text-[#3A6EA5] text-base font-medium transition py-2 border-b border-[#3A6EA5]/10" onClick={() => setMobileMenuOpen(false)}>Home</a>
-              <a href="/press" className="text-[#E6E6E6] hover:text-[#3A6EA5] text-base font-medium transition py-2 border-b border-[#3A6EA5]/10" onClick={() => setMobileMenuOpen(false)}>Press</a>
-              <a href="/pricing-plans" className="text-[#E6E6E6] hover:text-[#3A6EA5] text-base font-medium transition py-2 border-b border-[#3A6EA5]/10" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
+              <a
+                href="/"
+                className="text-[#E6E6E6] hover:text-[#3A6EA5] text-base font-medium transition py-2 border-b border-[#3A6EA5]/10"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Home
+              </a>
+              <a
+                href="/press"
+                className="text-[#E6E6E6] hover:text-[#3A6EA5] text-base font-medium transition py-2 border-b border-[#3A6EA5]/10"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Press
+              </a>
+              <a
+                href="/pricing-plans"
+                className="text-[#E6E6E6] hover:text-[#3A6EA5] text-base font-medium transition py-2 border-b border-[#3A6EA5]/10"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Pricing
+              </a>
             </div>
             <div className="flex flex-col space-y-3 pt-4">
               <a
@@ -90,7 +126,9 @@ const Press: React.FC = () => {
       </header>
       {/* Main Content */}
       <main className="flex flex-col items-center px-4 py-32 mt-16 min-h-[60vh]">
-        <h1 className="text-4xl font-bold text-[#1A2E40] mb-10">Press & Media</h1>
+        <h1 className="text-4xl font-bold text-[#1A2E40] mb-10">
+          Press & Media
+        </h1>
         <div className="w-full max-w-2xl flex flex-col gap-6">
           {/* Law.com Article */}
           <a
@@ -105,9 +143,16 @@ const Press: React.FC = () => {
                 <span className="text-xl font-bold text-[#3A6EA5]">L</span>
               </span>
               <div>
-                <div className="text-lg font-semibold text-[#1A2E40] group-hover:text-[#3A6EA5] transition">Law.com</div>
-                <div className="text-sm text-[#6B7280] mt-1">Why 2 Cornell Tech Grads Built a Business Development Tool for Individual & Firm Lawyers</div>
-                <div className="text-xs text-[#C9A34D] mt-1">August 25, 2025</div>
+                <div className="text-lg font-semibold text-[#1A2E40] group-hover:text-[#3A6EA5] transition">
+                  Law.com
+                </div>
+                <div className="text-sm text-[#6B7280] mt-1">
+                  Why 2 Cornell Tech Grads Built a Business Development Tool for
+                  Individual & Firm Lawyers
+                </div>
+                <div className="text-xs text-[#C9A34D] mt-1">
+                  August 25, 2025
+                </div>
               </div>
             </div>
           </a>
