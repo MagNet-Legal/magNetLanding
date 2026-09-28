@@ -1,6 +1,7 @@
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { isLoggedIn } from "./lib/authCookie";
 
 // The one shared header + footer for every real page (Home, Pricing, Privacy,
 // Terms). Previously each page hand-copied this markup — see the code review
@@ -9,6 +10,11 @@ import { Link } from "react-router-dom";
 
 function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setLoggedIn(isLoggedIn());
+  }, []);
 
   return (
     <header className="fixed left-0 right-0 top-0 z-10 border-b border-cool-taupe bg-ivory-white/95 shadow-card backdrop-blur-sm">
@@ -39,21 +45,34 @@ function Nav() {
 
         {/* Desktop CTA Buttons */}
         <div className="hidden items-center gap-4 md:flex">
+          {loggedIn ? (
+            <a
+              href="https://app.magnetlegal.co/logout"
+              className="flex items-center justify-center px-5 py-2.5 font-display text-sm font-medium text-steel-gray transition-colors hover:text-ink-black"
+            >
+              <span>Log out</span>
+            </a>
+          ) : (
+            <a
+              href="https://app.magnetlegal.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center rounded-md border border-cool-taupe bg-ivory-white px-5 py-2.5 font-display text-sm font-medium text-steel-gray shadow-sm transition-colors hover:bg-cobalt-blue hover:text-ivory-white"
+            >
+              <span>Login</span>
+            </a>
+          )}
           <a
-            href="https://app.magnetlegal.co"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center rounded-md border border-cool-taupe bg-ivory-white px-5 py-2.5 font-display text-sm font-medium text-steel-gray shadow-sm transition-colors hover:bg-cobalt-blue hover:text-ivory-white"
-          >
-            <span>Login</span>
-          </a>
-          <a
-            href="https://calendly.com/magnetagents/30min"
+            href={
+              loggedIn
+                ? "https://app.magnetlegal.co"
+                : "https://calendly.com/magnetagents/30min"
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center rounded-md border border-transparent bg-brass-gold px-5 py-2.5 font-display text-sm font-semibold text-midnight-navy shadow-[0_2px_12px_rgba(232,197,106,0.2)] transition-colors hover:bg-brass-deep"
           >
-            <span>Book a Demo</span>
+            <span>{loggedIn ? "Open Magnet" : "Book a Demo"}</span>
           </a>
         </div>
 
@@ -95,23 +114,37 @@ function Nav() {
           </div>
 
           <div className="flex flex-col space-y-3 pt-4">
+            {loggedIn ? (
+              <a
+                href="https://app.magnetlegal.co/logout"
+                className="flex items-center justify-center px-5 py-3 font-display text-base font-medium text-steel-gray transition-colors hover:text-ink-black"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span>Log out</span>
+              </a>
+            ) : (
+              <a
+                href="https://app.magnetlegal.co"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center rounded-md border border-cool-taupe bg-ivory-white px-5 py-3 font-display text-base font-medium text-steel-gray shadow-sm transition-colors hover:bg-cobalt-blue hover:text-ivory-white"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span>Login</span>
+              </a>
+            )}
             <a
-              href="https://app.magnetlegal.co"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center rounded-md border border-cool-taupe bg-ivory-white px-5 py-3 font-display text-base font-medium text-steel-gray shadow-sm transition-colors hover:bg-cobalt-blue hover:text-ivory-white"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span>Login</span>
-            </a>
-            <a
-              href="https://calendly.com/magnetagents/30min"
+              href={
+                loggedIn
+                  ? "https://app.magnetlegal.co"
+                  : "https://calendly.com/magnetagents/30min"
+              }
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center rounded-md border border-transparent bg-brass-gold px-5 py-3 font-display text-base font-semibold text-midnight-navy transition-colors hover:bg-brass-deep"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <span>Book a Demo</span>
+              <span>{loggedIn ? "Open Magnet" : "Book a Demo"}</span>
             </a>
           </div>
         </div>
