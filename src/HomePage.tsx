@@ -10,14 +10,13 @@ function HomePage() {
       "Freshfields Bruckhaus Deringer",
       "Lowenstein Sandler",
       "White & Case",
-      "Alston & Bird",
+      "Reed Smith",
       "Eversheds Sutherland",
     ],
     [
       "Frankfurt Kurnit Klein & Selz",
       "DLA Piper",
       "Orrick, Herrington & Sutcliffe",
-      "Reed Smith",
       "Akin Gump Strauss Hauer & Feld",
     ],
   ];
@@ -320,7 +319,7 @@ function HomePage() {
                 Features
               </p>
               <h2 className="mt-4 font-display text-2xl font-bold tracking-tight text-ink-black sm:text-3xl">
-                A complete system for building your practice.
+                A complete system for building your book of business.
               </h2>
             </div>
 
