@@ -1,0 +1,46 @@
+name: Rebuild docs/
+
+# This site is served via GitHub Pages from the committed docs/ folder
+# (see CNAME, README) - there's no build step on GitHub's side, so docs/
+# has to already be up to date with source by the time a PR merges into
+# main. This runs the build on every PR targeting main and pushes the
+# result back onto the PR's own branch (not main - main is protected and
+# this would be rejected there), so by the time it's reviewed and merged,
+# docs/ and source can never drift apart again.
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild-docs:
+    # Guards against the docs-commit step below re-triggering this same
+    # workflow on the branch it just pushed to.
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Commit docs/ if it changed
+        run: |
+          if [ -n "$(git status --porcelain docs/)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add docs/
+            git commit -m "Rebuild docs/ from ${{ github.sha }}"
+            git push
+          else
+            echo "docs/ already matches source - nothing to commit."
+          fi
