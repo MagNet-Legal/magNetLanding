@@ -87,19 +87,35 @@ function Nav() {
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 text-steel-gray transition hover:bg-cool-taupe/50 hover:text-ink-black md:hidden"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          <span className="sr-only">Open main menu</span>
-          {mobileMenuOpen ? (
-            <X className="block h-6 w-6" aria-hidden="true" />
-          ) : (
-            <Menu className="block h-6 w-6" aria-hidden="true" />
-          )}
-        </button>
+        {/* Mobile: the desktop CTA group is hidden below md, so surface the
+            primary CTA next to the menu button instead of burying it in the menu. */}
+        <div className="flex items-center gap-2 md:hidden">
+          <a
+            href={
+              loggedIn
+                ? "https://app.magnetlegal.co"
+                : "https://calendly.com/magnetagents/30min"
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-brass-gold px-3 py-2 font-display text-sm font-semibold text-midnight-navy shadow-[0_2px_12px_rgba(232,197,106,0.2)] transition-colors hover:bg-brass-deep"
+          >
+            <span>{loggedIn ? "Open Magnet" : "Book a Demo"}</span>
+          </a>
+          {/* Mobile Menu Button */}
+          <button
+            type="button"
+            className="inline-flex items-center justify-center rounded-md p-2 text-steel-gray transition hover:bg-cool-taupe/50 hover:text-ink-black md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <span className="sr-only">Open main menu</span>
+            {mobileMenuOpen ? (
+              <X className="block h-6 w-6" aria-hidden="true" />
+            ) : (
+              <Menu className="block h-6 w-6" aria-hidden="true" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -107,17 +123,17 @@ function Nav() {
         className={`md:hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 overflow-hidden opacity-0"}`}
       >
         <div className="space-y-4 border-t border-cool-taupe bg-ivory-white px-4 pb-4 pt-2">
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col">
             <a
               href="/#how-it-works"
-              className="border-b border-cool-taupe py-2 font-display text-base font-medium text-steel-gray transition hover:text-ink-black"
+              className="flex min-h-[3.25rem] items-center border-b border-cool-taupe font-display text-[1.0625rem] font-semibold tracking-[-0.01em] text-ink-black transition hover:text-cobalt-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt-blue"
               onClick={() => setMobileMenuOpen(false)}
             >
               How It Works
             </a>
             <Link
               to="/pricing-plans"
-              className="border-b border-cool-taupe py-2 font-display text-base font-medium text-steel-gray transition hover:text-ink-black"
+              className="flex min-h-[3.25rem] items-center border-b border-cool-taupe font-display text-[1.0625rem] font-semibold tracking-[-0.01em] text-ink-black transition hover:text-cobalt-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt-blue"
               onClick={() => setMobileMenuOpen(false)}
             >
               Pricing
@@ -128,7 +144,7 @@ function Nav() {
             {loggedIn ? (
               <a
                 href="https://app.magnetlegal.co/logout"
-                className="flex items-center justify-center px-5 py-3 font-display text-base font-medium text-steel-gray transition-colors hover:text-ink-black"
+                className="flex items-center justify-center px-5 py-3 font-display text-base font-medium text-ink-black transition-colors hover:text-ink-black"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span>Log out</span>
@@ -138,25 +154,12 @@ function Nav() {
                 href="https://app.magnetlegal.co"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center rounded-md border border-cool-taupe bg-ivory-white px-5 py-3 font-display text-base font-medium text-steel-gray shadow-sm transition-colors hover:bg-cobalt-blue hover:text-ivory-white"
+                className="flex items-center justify-center rounded-md border border-cool-taupe bg-ivory-white px-5 py-3 font-display text-base font-medium text-ink-black shadow-sm transition-colors hover:bg-cobalt-blue hover:text-ivory-white"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span>Login</span>
               </a>
             )}
-            <a
-              href={
-                loggedIn
-                  ? "https://app.magnetlegal.co"
-                  : "https://calendly.com/magnetagents/30min"
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center rounded-md border border-transparent bg-brass-gold px-5 py-3 font-display text-base font-semibold text-midnight-navy transition-colors hover:bg-brass-deep"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span>{loggedIn ? "Open Magnet" : "Book a Demo"}</span>
-            </a>
           </div>
         </div>
       </div>
@@ -174,44 +177,46 @@ function Footer() {
           className="mx-auto h-12 w-auto object-contain sm:h-16 lg:h-20"
         />
 
-        <div className="mt-[140px] flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
+        <div className="mt-[140px] flex flex-col items-start gap-6 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-x-8 md:gap-y-4">
           <img
             src="/nvidia-inception-program-badge-rgb-for-screen.png"
             alt="NVIDIA Inception Program"
-            className="h-[56px] w-auto"
+            className="hidden h-[56px] w-auto md:block"
           />
 
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <Link
-              to="/terms-of-service"
-              className="font-plex text-xs text-steel-gray transition hover:text-ink-black"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              to="/privacy-policy"
-              className="font-plex text-xs text-steel-gray transition hover:text-ink-black"
-            >
-              Privacy Policy
-            </Link>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 md:contents">
+            <div className="contents md:flex md:flex-wrap md:items-center md:gap-x-6 md:gap-y-2">
+              <Link
+                to="/terms-of-service"
+                className="font-plex text-xs text-steel-gray transition hover:text-ink-black"
+              >
+                Terms of Service
+              </Link>
+              <Link
+                to="/privacy-policy"
+                className="font-plex text-xs text-steel-gray transition hover:text-ink-black"
+              >
+                Privacy Policy
+              </Link>
+              <a
+                href="mailto:contact@magnetlegal.co"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-plex text-xs text-steel-gray transition hover:text-ink-black"
+              >
+                Contact
+              </a>
+            </div>
+
             <a
-              href="mailto:contact@magnetlegal.co"
+              href="https://www.linkedin.com/company/magnet-legal-ai/home/"
               target="_blank"
               rel="noopener noreferrer"
               className="font-plex text-xs text-steel-gray transition hover:text-ink-black"
             >
-              Contact
+              LinkedIn
             </a>
           </div>
-
-          <a
-            href="https://www.linkedin.com/company/magnet-legal-ai/home/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-plex text-xs text-steel-gray transition hover:text-ink-black"
-          >
-            LinkedIn
-          </a>
 
           <p className="font-plex text-xs text-steel-gray">
             &copy; {new Date().getFullYear()} Magnet. All rights reserved.
