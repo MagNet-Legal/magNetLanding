@@ -20,9 +20,7 @@ function Newsletter() {
               <div className="text-[#3A6EA5]">
                 <Magnet size={24} />
               </div>
-              <h2 className="text-xl font-semibold tracking-tight">
-                MagNet Agents
-              </h2>
+              <h2 className="text-xl font-semibold tracking-tight">Magnet</h2>
             </div>
           </Link>
           <Link
@@ -60,7 +58,7 @@ function Newsletter() {
               <div className="text-[#3A6EA5]">
                 <Magnet size={20} />
               </div>
-              <h2 className="text-lg font-semibold">MagNet Agents</h2>
+              <h2 className="text-lg font-semibold">Magnet</h2>
               <img
                 src="/nvidia-inception-program-badge-rgb-for-screen.png"
                 alt="NVIDIA Inception Program"
@@ -69,8 +67,7 @@ function Newsletter() {
             </div>
             <div className="mt-8 md:mt-0">
               <p className="text-sm text-[#6B7280]">
-                &copy; {new Date().getFullYear()} MagNet Agents. All rights
-                reserved.
+                &copy; {new Date().getFullYear()} Magnet. All rights reserved.
               </p>
             </div>
           </div>

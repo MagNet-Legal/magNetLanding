@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import HomePage from "./HomePage";
 import PrivacyPolicy from "./PrivacyPolicy";
@@ -19,9 +21,29 @@ import Layout from "./Layout";
 // import Newsletter from "./Newsletter";
 // import Press from "./Press";
 
+// BrowserRouter doesn't reset scroll on navigation, so a new page would open at
+// the previous page's scroll offset. Every route change (back/forward included)
+// goes to the top — except when the URL has a hash, which HomePage scrolls to
+// itself (e.g. /#how-it-works).
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.history.scrollRestoration = "manual";
+  }, []);
+
+  useEffect(() => {
+    if (window.location.hash) return;
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />

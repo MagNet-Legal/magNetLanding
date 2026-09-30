@@ -214,8 +214,7 @@ function Footer() {
           </a>
 
           <p className="font-plex text-xs text-steel-gray">
-            &copy; {new Date().getFullYear()} MagNet Agents. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} Magnet. All rights reserved.
           </p>
         </div>
       </div>

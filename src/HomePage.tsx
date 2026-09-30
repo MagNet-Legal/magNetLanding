@@ -34,7 +34,7 @@ const testimonials = [
       "AI, IP, Privacy, and Cybersecurity Lawyer at Digital Frontier Law, APC",
     photo: "/testimonials/jonathan-joannides.jpeg",
     quote: [
-      "“Having supported startups and growing businesses at Wilson Sonsini and Fenwick, I know how dynamic client development can be. Now that I've launched my own Silicon Valley firm, MagNet Agents has become a core part of how we identify future clients. It simplifies research, streamlines outreach, and keeps everything organized in an elegant, intuitive way. MagNet Agents is now a key driver in our business development workflow.”",
+      "“Having supported startups and growing businesses at Wilson Sonsini and Fenwick, I know how dynamic client development can be. Now that I've launched my own Silicon Valley firm, Magnet has become a core part of how we identify future clients. It simplifies research, streamlines outreach, and keeps everything organized in an elegant, intuitive way. Magnet is now a key driver in our business development workflow.”",
     ],
   },
   {
@@ -178,8 +178,8 @@ function HomePage() {
                     New client discovery
                   </p>
                   <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
-                    Describe who you're looking for. AI agents find real people
-                    who match, beyond your existing contacts.
+                    Describe your ideal client once. AI agents find people and
+                    events that match.
                   </p>
                 </div>
                 <div>
@@ -187,8 +187,8 @@ function HomePage() {
                     Warm relationship memory
                   </p>
                   <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
-                    Keep each relationship's history, past conversations, and
-                    relevant context in one place.
+                    Keeps past conversations and relationship context in one
+                    place.
                   </p>
                 </div>
               </div>
@@ -201,11 +201,11 @@ function HomePage() {
               <div className="mt-4 space-y-4">
                 <div>
                   <p className="font-display text-sm font-bold text-ink-black">
-                    Market signal tracking
+                    Signal tracking
                   </p>
                   <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
-                    Surface news and market developments that give you a timely
-                    reason to reach out.
+                    News, market developments and other opportunities that give
+                    you a timely reason to reach out.
                   </p>
                 </div>
                 <div>
@@ -213,8 +213,8 @@ function HomePage() {
                     Communication cadence
                   </p>
                   <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
-                    Timing also accounts for when you last reached out, so no
-                    relationship goes quiet by accident.
+                    Suggests best outreach time, with a dashboard to track
+                    overall progress.
                   </p>
                 </div>
               </div>
@@ -227,11 +227,10 @@ function HomePage() {
               <div className="mt-4 space-y-4">
                 <div>
                   <p className="font-display text-sm font-bold text-ink-black">
-                    Voice backed by BD craft
+                    Your voice backed by BD craft
                   </p>
                   <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
-                    Drafts blend your own voice with proven outreach and
-                    business-development best practices.
+                    Drafts blend your own voice with BD best practices.
                   </p>
                 </div>
                 <div>
@@ -239,8 +238,8 @@ function HomePage() {
                     Context-aware messaging
                   </p>
                   <p className="mt-1 font-display text-sm leading-relaxed text-steel-gray">
-                    Content reflects the relationship's history and what would
-                    specifically interest the person you're reaching.
+                    Reflects the relationship's history and what would interest
+                    the person you're reaching.
                   </p>
                 </div>
               </div>
@@ -366,7 +365,7 @@ function HomePage() {
       >
         <div className="mx-auto max-w-[900px] px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-display text-xl font-semibold tracking-tight text-ivory-white sm:text-2xl lg:text-3xl">
-            Save time. Reduce mental load. Build better relationships.
+            Save time. Reduce mental load. Build relationships that matter.
           </h2>
           <div className="mt-10 flex justify-center">
             <a

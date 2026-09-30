@@ -13,9 +13,7 @@ const Press: React.FC = () => {
             <div className="text-[#3A6EA5]">
               <Magnet size={24} />
             </div>
-            <h2 className="text-xl font-semibold tracking-tight">
-              MagNet Agents
-            </h2>
+            <h2 className="text-xl font-semibold tracking-tight">Magnet</h2>
           </Link>
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
