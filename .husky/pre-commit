@@ -1,4 +1,4 @@
-if command -v gitleaks &> /dev/null; then
+if command -v gitleaks >/dev/null 2>&1; then
   gitleaks protect --staged --verbose --config .gitleaks.toml || exit 1
 else
   echo "gitleaks not installed - skipping secret scan. Install: brew install gitleaks (see https://github.com/gitleaks/gitleaks#installing for other platforms)"
