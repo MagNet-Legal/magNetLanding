@@ -31,7 +31,10 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build
+      # `npm run build` now writes dist/ (for deploy-pages.yml). Until this
+      # workflow is deleted, keep docs/ current so the Pages rollback
+      # (Source: main, /docs) still serves today's site.
+      - run: npx vite build --outDir docs && cp docs/index.html docs/404.html
 
       - name: Commit docs/ if it changed
         run: |
