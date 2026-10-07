@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
+import { currentPlanPriceId, isLoggedIn } from "./lib/authCookie";
 import {
   founderAdvisoryFeatures,
   individualFeatureGroups,
@@ -191,10 +192,32 @@ const products: Product[] = [
 
 // --- Main Pricing Component ---
 
+// Where an existing member changes their plan. Choosing a plan here would start a
+// checkout and create a second subscription, so a member is sent to their account
+// instead, where Update Plan changes the subscription they already have.
+const ACCOUNT_URL = "https://app.magnetlegal.co/plan";
+
 function PricingPlans() {
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">(
     "monthly",
   );
+  // Read on first paint so a member never sees the new-customer buttons flash by,
+  // and again on focus: the account opens in another tab, where they may sign in,
+  // out, or change plan.
+  const [currentPriceId, setCurrentPriceId] = useState(() =>
+    isLoggedIn() ? currentPlanPriceId() : null,
+  );
+  useEffect(() => {
+    const resync = () =>
+      setCurrentPriceId(isLoggedIn() ? currentPlanPriceId() : null);
+    window.addEventListener("focus", resync);
+    document.addEventListener("visibilitychange", resync);
+    return () => {
+      window.removeEventListener("focus", resync);
+      document.removeEventListener("visibilitychange", resync);
+    };
+  }, []);
+  const isMember = currentPriceId !== null;
   const handlePurchase = (product: (typeof products)[number]) => {
     window.location.href = `https://app.magnetlegal.co/auth?mode=signup&plan=${product.priceId}`;
   };
@@ -219,6 +242,25 @@ function PricingPlans() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+      {/* mb-[69px]: the same space as above it, from the fixed header down to the
+          banner, so the banner sits evenly between the header and the title. */}
+      {isMember && (
+        <div className="mx-auto mb-[69px] max-w-xl rounded-xl border border-cobalt-blue/40 bg-paper-white p-6 text-center shadow-card ring-1 ring-cobalt-blue/40">
+          <p className="font-display text-base font-semibold text-ink-black">
+            You&apos;re already a member.
+          </p>
+          <p className="mt-1 font-plex text-sm text-steel-gray">
+            To change your plan, update it from your account.
+          </p>
+          <a
+            href={ACCOUNT_URL}
+            className="mt-4 inline-flex items-center justify-center rounded-md bg-cobalt-blue px-5 py-2.5 font-display text-sm font-semibold text-ivory-white transition hover:brightness-110"
+          >
+            Go to your account
+          </a>
+        </div>
+      )}
+
       <div className="mb-[1.8rem] text-center">
         <h1 className="font-display text-3xl font-bold tracking-tight text-ink-black sm:text-4xl">
           Choose Your Plan
@@ -254,13 +296,22 @@ function PricingPlans() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-7xl flex-wrap justify-center gap-8">
+      {/* Three across from lg up, the cards shrinking to share the row (they are
+          max-w-sm, so they only reach full width on wide screens). Below that they
+          stack in one column, in the same order, instead of wrapping and leaving
+          one card alone on a second row. */}
+      <div className="mx-auto grid max-w-7xl grid-cols-1 justify-items-center gap-8 lg:grid-cols-3">
         {filteredProducts.map((product) => {
           // Team is sales-assisted, not a real Stripe product — no price,
           // no checkout, just a description and a Contact Us link.
           if (!product.priceId) {
+            // Last when stacked in one column, first when three sit across (lg).
+            // Visual order only; the markup order is unchanged.
             return (
-              <Card key={product.name} className="self-start">
+              <Card
+                key={product.name}
+                className="order-last self-start lg:order-none"
+              >
                 <CardHeader>
                   <CardTitle>{product.name}</CardTitle>
                 </CardHeader>
@@ -288,6 +339,17 @@ function PricingPlans() {
           return (
             <Card key={product.priceId}>
               <CardHeader>
+                {/* Every card keeps this line while a member is viewing, hidden
+                    on the others, so the titles and prices stay level. */}
+                {isMember && (
+                  <p
+                    className={`mb-2 font-plex text-xs font-semibold text-cobalt-blue ${
+                      product.priceId === currentPriceId ? "" : "invisible"
+                    }`}
+                  >
+                    Your current plan
+                  </p>
+                )}
                 <CardTitle>{product.name}</CardTitle>
                 <div className="mt-4 font-display text-3xl font-bold text-ink-black">
                   {formatPrice(product.price, product.currency)}
@@ -361,16 +423,31 @@ function PricingPlans() {
                   )}
                 </div>
 
-                <Button
-                  className={`mt-8 transition ${
-                    product.name === "Founder Advisory"
-                      ? "border border-cobalt-blue text-cobalt-blue hover:bg-cobalt-blue/5"
-                      : "bg-cobalt-blue text-ivory-white hover:brightness-110"
-                  }`}
-                  onClick={() => handlePurchase(product)}
-                >
-                  Get Started
-                </Button>
+                {isMember ? (
+                  <a
+                    href={ACCOUNT_URL}
+                    className={`mt-8 inline-flex w-full items-center justify-center rounded-md px-6 py-3 font-display text-sm font-semibold transition ${
+                      product.name === "Founder Advisory"
+                        ? "border border-cobalt-blue text-cobalt-blue hover:bg-cobalt-blue/5"
+                        : "bg-cobalt-blue text-ivory-white hover:brightness-110"
+                    }`}
+                  >
+                    {product.priceId === currentPriceId
+                      ? "Manage in your account"
+                      : "Change in your account"}
+                  </a>
+                ) : (
+                  <Button
+                    className={`mt-8 transition ${
+                      product.name === "Founder Advisory"
+                        ? "border border-cobalt-blue text-cobalt-blue hover:bg-cobalt-blue/5"
+                        : "bg-cobalt-blue text-ivory-white hover:brightness-110"
+                    }`}
+                    onClick={() => handlePurchase(product)}
+                  >
+                    Get Started
+                  </Button>
+                )}
               </CardContent>
             </Card>
           );
