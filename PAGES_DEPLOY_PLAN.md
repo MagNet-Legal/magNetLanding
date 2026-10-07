@@ -17,7 +17,7 @@ rebuild commit was pushed to its branch (`08:54:23` merge, `08:55:28` rebuild co
 (#15) was needed to publish the stranded build.
 
 Nothing prevents this: `main` has no required status checks, and the rebuild runs
-*after* the PR is opened and reviewable.
+_after_ the PR is opened and reviewable.
 
 Other costs of committing build output:
 
