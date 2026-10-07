@@ -207,9 +207,20 @@ function PricingPlans() {
   const [currentPriceId, setCurrentPriceId] = useState(() =>
     isLoggedIn() ? currentPlanPriceId() : null,
   );
+  const [signedIn, setSignedIn] = useState(isLoggedIn);
+  // The app sends someone here with ?reason=no-active-subscription when it signed
+  // them in and found no active subscription, so say why they are looking at plans.
+  // Read once: it is a fact about how they arrived, not something that changes.
+  const [noActiveSubscription] = useState(
+    () =>
+      new URLSearchParams(window.location.search).get("reason") ===
+      "no-active-subscription",
+  );
   useEffect(() => {
-    const resync = () =>
+    const resync = () => {
+      setSignedIn(isLoggedIn());
       setCurrentPriceId(isLoggedIn() ? currentPlanPriceId() : null);
+    };
     window.addEventListener("focus", resync);
     document.addEventListener("visibilitychange", resync);
     return () => {
@@ -217,7 +228,10 @@ function PricingPlans() {
       document.removeEventListener("visibilitychange", resync);
     };
   }, []);
-  const isMember = currentPriceId !== null;
+  // The app's own answer (no active subscription) beats the plan marker, which can
+  // outlive a cancelled plan; without this a lapsed member would be told they are
+  // "already a member" and shown no way to subscribe again.
+  const isMember = currentPriceId !== null && !noActiveSubscription;
   const handlePurchase = (product: (typeof products)[number]) => {
     window.location.href = `https://app.magnetlegal.co/auth?mode=signup&plan=${product.priceId}`;
   };
@@ -251,6 +265,49 @@ function PricingPlans() {
           </p>
           <p className="mt-1 font-plex text-sm text-steel-gray">
             To change your plan, update it from your account.
+          </p>
+          <a
+            href={ACCOUNT_URL}
+            className="mt-4 inline-flex items-center justify-center rounded-md bg-cobalt-blue px-5 py-2.5 font-display text-sm font-semibold text-ivory-white transition hover:brightness-110"
+          >
+            Go to your account
+          </a>
+        </div>
+      )}
+
+      {noActiveSubscription && (
+        <div className="mx-auto mb-[69px] max-w-xl rounded-xl border border-cobalt-blue/40 bg-paper-white p-6 text-center shadow-card ring-1 ring-cobalt-blue/40">
+          <p className="font-display text-base font-semibold text-ink-black">
+            We couldn&apos;t find an active subscription for your account.
+          </p>
+          <p className="mt-1 font-plex text-sm text-steel-gray">
+            Choose a plan below to regain access. If this is an error, please{" "}
+            <a
+              href={`mailto:contact@magnetlegal.co?subject=${encodeURIComponent(
+                "Subscription question (Pricing)",
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cobalt-blue no-underline transition hover:brightness-110"
+            >
+              contact us
+            </a>
+            .
+          </p>
+        </div>
+      )}
+
+      {/* Signed in, but the plan marker is missing (it expires, and is only set
+          when the app loads), so we can't tell whether they already subscribe.
+          Don't show a plain price list as if they were new. */}
+      {signedIn && !isMember && !noActiveSubscription && (
+        <div className="mx-auto mb-[69px] max-w-xl rounded-xl border border-cobalt-blue/40 bg-paper-white p-6 text-center shadow-card ring-1 ring-cobalt-blue/40">
+          <p className="font-display text-base font-semibold text-ink-black">
+            You&apos;re signed in.
+          </p>
+          <p className="mt-1 font-plex text-sm text-steel-gray">
+            If you already have a plan, manage it from your account. The plans
+            below are for new subscriptions.
           </p>
           <a
             href={ACCOUNT_URL}
