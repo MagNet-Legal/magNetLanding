@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `npm install` — installs dependencies and (via the `prepare` script) installs the husky git hooks. Required one-time step before committing.
 - `npm run dev` — start the Vite dev server (port 5173, falls back to the next available port if taken).
-- `npm run build` — production build. Outputs to `docs/`, not the default `dist/`, because this site is served via GitHub Pages from `docs/` (see `CNAME`). The `postbuild` script then copies `docs/index.html` to `docs/404.html` so client-side routes resolve correctly on GitHub Pages, which has no server-side rewrite support.
+- `npm run build` — production build. Outputs to `dist/`. The `postbuild` script copies `dist/index.html` to `dist/404.html` so client-side routes resolve correctly on GitHub Pages, which has no server-side rewrite support.
 - `npm run preview` — preview the production build locally.
 - `npm run lint` — ESLint over the repo (`eslint.config.js`).
 - `npm run format` — Prettier write over the repo.
@@ -31,13 +31,12 @@ fail silently; check for them.
 
 **Two hazards specific to this repo:**
 
-- **Never build or commit while the live script is injected.** Live injects a
+- **Never commit while the live script is injected.** Live injects a
   `<script src="http://localhost:8400/live.js?token=…">` tag into `index.html`,
-  which is the build entry. `npm run build` outputs to `docs/`, which GitHub
-  Pages publishes — so building or committing mid-session would ship a localhost
-  script tag to the live marketing site. Stop Live (`live-server.mjs stop`, which
-  strips the injection) and confirm `index.html` is clean before building,
-  committing, or opening a PR.
+  which is the build entry. GitHub Pages builds from source on `main`, so
+  committing `index.html` mid-session would ship a localhost script tag to the
+  live marketing site. Stop Live (`live-server.mjs stop`, which strips the
+  injection) and confirm `index.html` is clean before committing or opening a PR.
 - **Port 5173 is not guaranteed here.** `npm run dev` falls back to the next free
   port if 5173 is taken (which it will be whenever `magnet-app-front` is also
   running). Confirm the actual dev URL before pointing Live at it. The Live
@@ -57,5 +56,5 @@ fail silently; check for them.
 
 - Single-page Vite + React 18 + TypeScript + Tailwind app with no nested folder structure under `src/` — every route is a flat top-level component: `HomePage.tsx`, `Press.tsx`, `PricingPlans.tsx`, `PrivacyPolicy.tsx`, `TermsOfService.tsx`, `Newsletter.tsx`, `ClientMatch.tsx`.
 - `App.tsx` owns routing via `react-router-dom` and renders **two separate `<Routes>` blocks**: the first switches over all page routes, the second matches only `/` and renders the shared footer. That's how the footer is shown on the home page only, without a shared layout/wrapper component — a route that should also show the footer needs to be added to both blocks.
-- `vite.config.ts`'s `base` is conditional on `command`: `'./'` for `build` (needed for the GitHub Pages build served from `docs/`), `'/'` for `dev`.
+- `vite.config.ts`'s `base` is conditional on `command`: `'./'` for `build`, `'/'` for `dev`.
 - The `.bolt/` directory (`config.json`, `prompt`) indicates this project was originally scaffolded from StackBlitz Bolt's `bolt-vite-react-ts` template.
