@@ -79,7 +79,7 @@ function Nav() {
                 ? "https://app.magnetlegal.co"
                 : "https://calendly.com/magnetagents/30min"
             }
-            target="_blank"
+            target={loggedIn ? undefined : "_blank"}
             rel="noopener noreferrer"
             className="flex items-center justify-center rounded-md border border-transparent bg-brass-gold px-5 py-2.5 font-display text-sm font-semibold text-midnight-navy shadow-[0_2px_12px_rgba(232,197,106,0.2)] transition-colors hover:bg-brass-deep"
           >
@@ -96,7 +96,7 @@ function Nav() {
                 ? "https://app.magnetlegal.co"
                 : "https://calendly.com/magnetagents/30min"
             }
-            target="_blank"
+            target={loggedIn ? undefined : "_blank"}
             rel="noopener noreferrer"
             className="flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-brass-gold px-3 py-2 font-display text-sm font-semibold text-midnight-navy shadow-[0_2px_12px_rgba(232,197,106,0.2)] transition-colors hover:bg-brass-deep"
           >
