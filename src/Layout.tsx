@@ -15,9 +15,9 @@ function Nav() {
   const [loggedIn, setLoggedIn] = useState(isLoggedIn);
 
   useEffect(() => {
-    // The Login/Log out links open app.magnetlegal.co in a separate tab, so
-    // this tab's cookie read can go stale the moment the visitor signs in
-    // or out there. Re-check whenever this tab regains focus.
+    // The visitor can sign in or out at app.magnetlegal.co and come back to
+    // this page (Back button or another tab), so this tab's cookie read can
+    // go stale. Re-check whenever this tab regains focus.
     const resync = () => setLoggedIn(isLoggedIn());
     window.addEventListener("focus", resync);
     document.addEventListener("visibilitychange", resync);
@@ -66,7 +66,6 @@ function Nav() {
           ) : (
             <a
               href="https://app.magnetlegal.co"
-              target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center rounded-md border border-cool-taupe bg-ivory-white px-5 py-2.5 font-display text-sm font-medium text-steel-gray shadow-sm transition-colors hover:bg-cobalt-blue hover:text-ivory-white"
             >
@@ -152,7 +151,6 @@ function Nav() {
             ) : (
               <a
                 href="https://app.magnetlegal.co"
-                target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center rounded-md border border-cool-taupe bg-ivory-white px-5 py-3 font-display text-base font-medium text-ink-black shadow-sm transition-colors hover:bg-cobalt-blue hover:text-ivory-white"
                 onClick={() => setMobileMenuOpen(false)}
